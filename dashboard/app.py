@@ -1,7 +1,8 @@
 import streamlit as st
 
-from dashboard.data_service import DataService
-from dashboard.charts import create_iv_chart
+from data_service import DataService
+from charts import create_iv_chart, create_iiv_chart
+
 
 # ==========================================================
 # PAGE
@@ -94,10 +95,6 @@ r2[3].metric(
     f"{latest['FUTURE_CLOSE']:,.2f}"
 )
 
-# ==========================================================
-# CHART PLACEHOLDER
-# ==========================================================
-
 st.divider()
 
 st.subheader("IV / HV / Futures")
@@ -106,8 +103,28 @@ fig = create_iv_chart(df)
 
 st.plotly_chart(
     fig,
-    use_container_width=True,
+    width="stretch",
 )
+
+# ==========================================================
+# INTRADAY IV CHART
+# ==========================================================
+
+if {"IIV", "FUTURE_CLOSE"}.issubset(df.columns):
+
+    st.subheader("Intraday IV Change")
+
+    fig = create_iiv_chart(df)
+
+    st.plotly_chart(
+        fig,
+        width="stretch",
+    )
+else:
+    st.info(
+        "Intraday IV chart is not available yet. "
+        "The dataset does not contain the required 'IIV' column."
+    )
 # ==========================================================
 # TABLE
 # ==========================================================
@@ -131,5 +148,5 @@ display_columns = [
 
 st.dataframe(
     df[display_columns],
-    use_container_width=True,
+    width="stretch",
 )

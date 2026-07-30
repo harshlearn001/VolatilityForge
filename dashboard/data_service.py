@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import pandas as pd
+from analytics.iv_change import calculate_iv_change
 
 
 class DataService:
@@ -37,6 +38,12 @@ class DataService:
         df = df.sort_values(
             "TRADE_DATE"
         )
+
+        # -----------------------------------------
+        # Calculate Day-to-Day IV Change
+        # -----------------------------------------
+
+        df = calculate_iv_change(df)
 
         return df
 
