@@ -1,0 +1,9 @@
+ATM_METHOD = "nearest"
+
+FUTURE_EXPIRY = "NEAR"
+
+LOOKBACK = 252
+
+IV_DECIMALS = 2
+
+DATE_FORMAT = "%Y%m%d"
