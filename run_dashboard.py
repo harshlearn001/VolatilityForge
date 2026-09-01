@@ -9,10 +9,16 @@ Run:
 """
 
 import sys
-import streamlit.web.cli as stcli
 
 
-def main():
+def main() -> None:
+    try:
+        import streamlit.web.cli as stcli
+    except ModuleNotFoundError as exc:
+        raise RuntimeError(
+            "Streamlit is required to run the dashboard. Install it with 'pip install streamlit plotly'."
+        ) from exc
+
     sys.argv = [
         "streamlit",
         "run",

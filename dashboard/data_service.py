@@ -1,13 +1,15 @@
 from pathlib import Path
 
 import pandas as pd
+
 from analytics.iv_change import calculate_iv_change
+from config.paths import DAILY_IV
 
 
 class DataService:
 
-    def __init__(self):
-        self.base = Path(r"H:\VolatilityForge\data\daily_iv")
+    def __init__(self, base: Path | None = None):
+        self.base = Path(base) if base is not None else DAILY_IV
 
     def load_symbol(self, symbol: str):
 
